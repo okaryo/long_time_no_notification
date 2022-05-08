@@ -83,5 +83,40 @@ void main() {
         });
       });
     });
+
+    group('#removeBy', () {
+      group('when same id value is already included', () {
+        test('should remove target id', () {
+          final actual = const ClosedNotifications([
+            ClosedNotification(id: 'test_1'),
+            ClosedNotification(id: 'test_2'),
+            ClosedNotification(id: 'test_3'),
+          ]).removeBy(['test_2']);
+          final expected = const ClosedNotifications([
+            ClosedNotification(id: 'test_1'),
+            ClosedNotification(id: 'test_3'),
+          ]);
+
+          expect(actual, expected);
+        });
+      });
+
+      group('when same id value is not included', () {
+        test('should not remove', () {
+          final actual = const ClosedNotifications([
+            ClosedNotification(id: 'test_1'),
+            ClosedNotification(id: 'test_2'),
+            ClosedNotification(id: 'test_3'),
+          ]).removeBy(['test_4']);
+          final expected = const ClosedNotifications([
+            ClosedNotification(id: 'test_1'),
+            ClosedNotification(id: 'test_2'),
+            ClosedNotification(id: 'test_3'),
+          ]);
+
+          expect(actual, expected);
+        });
+      });
+    });
   });
 }

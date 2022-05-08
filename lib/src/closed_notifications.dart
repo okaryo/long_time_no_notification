@@ -26,6 +26,13 @@ class ClosedNotifications {
     return ClosedNotifications(newValues);
   }
 
+  ClosedNotifications removeBy(List<String> ids) {
+    final newValues = values.where((value) {
+      return ids.every((id) => id != value.id);
+    }).toList();
+    return ClosedNotifications(newValues);
+  }
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

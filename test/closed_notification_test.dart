@@ -28,6 +28,38 @@ void main() {
         expect(actual, expected);
       });
     });
+
+    group('#fromJson', () {
+      group('when last_display_at key is null', () {
+        test('should return instance with only id', () {
+          final actual = ClosedNotification.fromJson({
+            'id': 'test_1',
+            'last_display_at': null,
+            'next_display_at': null,
+          });
+          final expected = const ClosedNotification(id: 'test_1');
+
+          expect(actual, expected);
+        });
+      });
+
+      group('when last_display_at key is not null', () {
+        test('should return instance with lastDisplayAt and nextDisplayAt', () {
+          final actual = ClosedNotification.fromJson({
+            'id': 'test_1',
+            'last_display_at': '2022-05-08 14:48:54.965',
+            'next_display_at': '2022-05-09 14:59:54.970',
+          });
+          final expected = ClosedNotification(
+            id: 'test_1',
+            lastDisplayAt: DateTime(2022, 5, 8, 14, 48, 54, 965),
+            nextDisplayAt: DateTime(2022, 5, 9, 14, 59, 54, 970),
+          );
+
+          expect(actual, expected);
+        });
+      });
+    });
   });
 
   group('instance method', () {

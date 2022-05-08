@@ -12,6 +12,20 @@ class ClosedNotifications {
     return null;
   }
 
+  ClosedNotifications addOrUpdate(ClosedNotification notification) {
+    final hasSameIdNotification = values.any((value) => value.id == notification.id);
+
+    if (hasSameIdNotification) {
+      final newValues = values.map((value) {
+        return value.id == notification.id ? notification : value;
+      }).toList();
+      return ClosedNotifications(newValues);
+    }
+
+    final newValues = [...values, notification];
+    return ClosedNotifications(newValues);
+  }
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

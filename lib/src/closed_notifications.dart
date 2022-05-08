@@ -11,4 +11,19 @@ class ClosedNotifications {
     }
     return null;
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ClosedNotifications) return false;
+    if (this.values.length != other.values.length) return false;
+    for (var i = 0; i < this.values.length; i++) {
+      if (this.values[i] != other.values[i]) return false;
+    }
+
+    return true;
+  }
+
+  @override
+  int get hashCode => super.hashCode;
 }

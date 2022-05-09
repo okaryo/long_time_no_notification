@@ -1,3 +1,3 @@
 library long_time_no_notification;
 
-export 'src/long_time_no_notification.dart';
+export 'src/long_time_no_notification.dart' show LongTimeNoNotification;

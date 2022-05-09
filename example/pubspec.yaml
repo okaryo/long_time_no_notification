@@ -1,0 +1,17 @@
+name: long_time_no_notification_example
+description: LongTimeNoNotification example
+
+publish_to: "none"
+version: 1.0.0
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  long_time_no_notification:
+    path: ../
+
+flutter:
+  uses-material-design: true

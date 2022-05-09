@@ -1,5 +1,5 @@
 name: long_time_no_notification
-description: A new Flutter package project.
+description: Package for easy management of showing and hiding notifications once closed!
 version: 0.0.1
 repository: https://github.com/okaryo/long_time_no_notification
 

@@ -1,39 +1,25 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# long_time_no_notification
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+A package for easy management of showing and hiding notifications once closed!
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## Motivation
+We wanted to be able to easily manage showing and hiding notifications on the client side only.
 
 ## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
 ```dart
-const like = 'sample';
+// not Display forever once closed
+LongTimeNoNotification.setForever(id: 'id_1');
+
+// not show up until 7 days have passed
+LongTimeNoNotification.setDuration(id: 'id_2', duration: const Duration(days: 7);
+
+// find data by id
+final notification = await LongTimeNoNotification.findBy('id_3');
+
+// should it be displayed or not
+notification.shouldNotify();
 ```
 
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+## Notes
+- Do not duplicate IDs.
+- IDs for notifications are stored in SharedPreferences, so please do not pass secure strings as IDs.

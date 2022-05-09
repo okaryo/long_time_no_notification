@@ -62,6 +62,30 @@ void main() {
     });
   });
 
+  group('getter', () {
+    group('#isForever', () {
+      group('when lastDisplayAt is null', () {
+        test('should return true', () {
+          final actual = ClosedNotification.foreverNoDisplay('test_id').isForever;
+
+          expect(actual, isTrue);
+        });
+      });
+
+      group('when lastDisplayAt is not null', () {
+        test('should return true', () {
+          final actual = ClosedNotification.interval(
+            'test_id',
+            DateTime(2022, 5, 8),
+            const Duration(days: 1),
+          ).isForever;
+
+          expect(actual, isFalse);
+        });
+      });
+    });
+  });
+
   group('instance method', () {
     group('#toJson', () {
       group('when instance has only id', () {

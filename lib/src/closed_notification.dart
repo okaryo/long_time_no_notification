@@ -24,6 +24,8 @@ class ClosedNotification {
     );
   }
 
+  bool get isForever => lastDisplayAt == null;
+
   Map<String, String?> toJson() {
     return {
       'id': id,

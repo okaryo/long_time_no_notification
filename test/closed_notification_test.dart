@@ -94,5 +94,55 @@ void main() {
         });
       });
     });
+
+    group('#shouldNotify', () {
+      group('when nextDisplayAt is null', () {
+        test('should return false', () {
+          final current = DateTime.parse('2022-05-09 14:59:54.971');
+          final actual = const ClosedNotification(id: 'test_id').shouldNotify(current);
+
+          expect(actual, isFalse);
+        });
+      });
+
+      group('when current is after nextDisplayAt', () {
+        test('should return true', () {
+          final current = DateTime.parse('2022-05-09 14:59:54.971');
+          final actual = ClosedNotification(
+            id: 'test_id',
+            lastDisplayAt: DateTime.parse('2022-05-08 14:48:54.965'),
+            nextDisplayAt: DateTime.parse('2022-05-09 14:59:54.970'),
+          ).shouldNotify(current);
+
+          expect(actual, isTrue);
+        });
+      });
+
+      group('when current is same with nextDisplayAt', () {
+        test('should return false', () {
+          final current = DateTime.parse('2022-05-09 14:59:54.970');
+          final actual = ClosedNotification(
+            id: 'test_id',
+            lastDisplayAt: DateTime.parse('2022-05-08 14:48:54.965'),
+            nextDisplayAt: DateTime.parse('2022-05-09 14:59:54.970'),
+          ).shouldNotify(current);
+
+          expect(actual, isFalse);
+        });
+      });
+
+      group('when current is before nextDisplayAt', () {
+        test('should return false', () {
+          final current = DateTime.parse('2022-05-09 14:59:54.969');
+          final actual = ClosedNotification(
+            id: 'test_id',
+            lastDisplayAt: DateTime.parse('2022-05-08 14:48:54.965'),
+            nextDisplayAt: DateTime.parse('2022-05-09 14:59:54.970'),
+          ).shouldNotify(current);
+
+          expect(actual, isFalse);
+        });
+      });
+    });
   });
 }

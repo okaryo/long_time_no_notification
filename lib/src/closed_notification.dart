@@ -32,6 +32,12 @@ class ClosedNotification {
     };
   }
 
+  bool shouldNotify(DateTime current) {
+    if (nextDisplayAt == null) return false;
+
+    return current.isAfter(nextDisplayAt!);
+  }
+
   @override
   bool operator ==(Object other) =>
       other is ClosedNotification &&

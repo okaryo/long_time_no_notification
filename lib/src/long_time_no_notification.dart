@@ -3,6 +3,9 @@ import 'package:long_time_no_notification/src/notification_repository.dart';
 import 'package:long_time_no_notification/src/notification_shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// For example, this class can be useful when a notification is confirmed and should not be displayed for a few days.
+///
+/// You can choose not to display the notification forever or for a certain period of time.
 class LongTimeNoNotification {
   static final Future<SharedPreferences> _instance = SharedPreferences.getInstance();
   static final NotificationSharedPreferences _sharedPreferences = NotificationSharedPreferences(_instance);
@@ -12,6 +15,7 @@ class LongTimeNoNotification {
 
   LongTimeNoNotification._(this._notification);
 
+  /// Prevent the notification of the target ID from being displayed forever.
   static Future<LongTimeNoNotification> setForever({required String id}) async {
     return LongTimeNoNotificationDelegate.set(
       id: id,
@@ -20,6 +24,7 @@ class LongTimeNoNotification {
     );
   }
 
+  /// From the date and time this method is called, the notification for the target ID will not be displayed for the `Duration` passed as an argument.
   static Future<LongTimeNoNotification> setDuration({required String id, required Duration duration}) {
     return LongTimeNoNotificationDelegate.set(
       id: id,
@@ -29,24 +34,37 @@ class LongTimeNoNotification {
     );
   }
 
+  /// Retrieves the corresponding ID's notification data from SharedPreferences.
+  ///
+  /// If the data is not found, this will return null.
   static Future<LongTimeNoNotification?> findBy(String id) {
     return LongTimeNoNotificationDelegate.findBy(id, _repository);
   }
 
+  /// Deletes all notification data from SharedPreferences.
   static Future<bool> clearAll() {
     return LongTimeNoNotificationDelegate.resetAll(_repository);
   }
 
+  /// Deletes data from SharedPreferences for the notification whose IDs are passed as an argument.
   static Future<bool> clear(List<String> ids) {
     return LongTimeNoNotificationDelegate.clear(ids, _repository);
   }
 
+  /// If notification was closed with `setForever`, this will return true.
   bool get isForever => _notification.isForever;
 
+  /// DateTime last displayed.
+  ///
+  /// If notification was closed with `setForever`, this will always return null.
   DateTime? get lastDisplayAt => _notification.lastDisplayAt;
 
+  /// DateTime to be displayed next.
+  ///
+  /// If notification was closed with `setForever`, this will always return null.
   DateTime? get nextDisplayAt => _notification.nextDisplayAt;
 
+  /// If `DateTime.now()` is after `nextDisplayAt`, this returns true.
   bool shouldNotify() {
     return _notification.shouldNotify(DateTime.now());
   }

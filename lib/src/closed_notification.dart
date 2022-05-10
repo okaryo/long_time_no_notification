@@ -43,9 +43,9 @@ class ClosedNotification {
   @override
   bool operator ==(Object other) =>
       other is ClosedNotification &&
-      this.id == other.id &&
-      this.lastDisplayAt == other.lastDisplayAt &&
-      this.nextDisplayAt == other.nextDisplayAt;
+      id == other.id &&
+      lastDisplayAt == other.lastDisplayAt &&
+      nextDisplayAt == other.nextDisplayAt;
 
   @override
   int get hashCode => super.hashCode;

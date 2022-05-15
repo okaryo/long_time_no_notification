@@ -34,6 +34,16 @@ class LongTimeNoNotification {
     );
   }
 
+  /// Notifications for the target ID will not be displayed until the `nextDisplayAt` passed in the argument.
+  static Future<LongTimeNoNotification> setNext({required String id, required DateTime nextDisplayAt}) {
+    return LongTimeNoNotificationDelegate.set(
+      id: id,
+      currentDateTime: DateTime.now(),
+      nextDisplayAt: nextDisplayAt,
+      repository: _repository,
+    );
+  }
+
   /// Retrieves the corresponding ID's notification data from SharedPreferences.
   ///
   /// If the data is not found, this will return null.
@@ -97,14 +107,19 @@ class LongTimeNoNotificationDelegate {
 
   static Future<LongTimeNoNotification> set({
     required String id,
-    bool? forever,
     Duration? duration,
+    DateTime? nextDisplayAt,
     required DateTime currentDateTime,
     required NotificationRepository repository,
   }) async {
-    final notification = duration == null
-        ? ClosedNotification.foreverNoDisplay(id)
-        : ClosedNotification.interval(id, currentDateTime, duration);
+    late final notification;
+    if (duration == null && nextDisplayAt == null) {
+      notification = ClosedNotification.foreverNoDisplay(id);
+    } else if (duration != null) {
+      notification = ClosedNotification.interval(id, currentDateTime, duration);
+    } else if (nextDisplayAt != null) {
+      notification = ClosedNotification.next(id, currentDateTime, nextDisplayAt);
+    }
 
     await repository.setNotification(notification);
 

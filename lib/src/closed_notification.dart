@@ -14,6 +14,10 @@ class ClosedNotification {
     return ClosedNotification(id: id, lastDisplayAt: lastDisplayAt, nextDisplayAt: nextDisplayAt);
   }
 
+  factory ClosedNotification.next(String id, DateTime lastDisplayAt, DateTime nextDisplayAt) {
+    return ClosedNotification(id: id, lastDisplayAt: lastDisplayAt, nextDisplayAt: nextDisplayAt);
+  }
+
   factory ClosedNotification.fromJson(Map<String, String?> json) {
     if (json['last_display_at'] == null) return ClosedNotification(id: json['id']!);
 

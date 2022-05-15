@@ -29,6 +29,23 @@ void main() {
       });
     });
 
+    group('#next', () {
+      test('should create instance', () {
+        final actual = ClosedNotification.next(
+          'test_id',
+          DateTime.parse('2022-05-08 14:48:54.965'),
+          DateTime.parse('2022-05-09 14:59:54.970'),
+        );
+        final expected = ClosedNotification(
+          id: 'test_id',
+          lastDisplayAt: DateTime(2022, 5, 8, 14, 48, 54, 965),
+          nextDisplayAt: DateTime(2022, 5, 9, 14, 59, 54, 970),
+        );
+
+        expect(actual, expected);
+      });
+    });
+
     group('#fromJson', () {
       group('when last_display_at key is null', () {
         test('should return instance with only id', () {

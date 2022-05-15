@@ -1,6 +1,6 @@
 name: long_time_no_notification
 description: A package for easy management of showing and hiding notifications once closed!
-version: 0.0.2
+version: 0.0.3
 repository: https://github.com/okaryo/long_time_no_notification
 
 environment:

@@ -1,3 +1,6 @@
+## 0.0.4
+- [UPDATE] README
+
 ## 0.0.3
 - [UPDATE] add `setNext` method.
 
